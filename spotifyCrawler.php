@@ -46,7 +46,7 @@ class spotifyCrawler
     {
         $this->userAgent = $value;
     }
-    public function createClient(): string
+    public function createClient(): array
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://open.spotify.com');
@@ -62,9 +62,9 @@ class spotifyCrawler
         $fr = json_decode(substr($response, $z1, strpos($response, '</script>', $z1) - $z1), true);
         $this->clientId = $fr['clientId'];
         $this->clientToken = $fr['accessToken'];
-        return $this->clientToken;
+        return $fr;
     }
-    public function getAccessToken(string $_id = 'NaN'): string
+    public function getAccessToken(string $_id = 'NaN'): array
     {
         if ($_id == 'NaN') {
             if ($this->clientId == null) $this->createClient();
@@ -86,7 +86,7 @@ class spotifyCrawler
         curl_setopt($ch, CURLOPT_POSTFIELDS, '{"client_data":{"client_version":"1.2.23.56.gc151b964","client_id":"' . $_id . '","js_sdk_data":{"device_brand":"unknown","device_model":"unknown","os":"windows","os_version":"NT 10.0","device_id":"2614934cd7e34dcf996c5738de4a9257","device_type":"computer"}}}');
         $response = json_decode(gzdecode(curl_exec($ch)), true);
         $this->accessToken = $response['granted_token']['token'];
-        return $response['granted_token']['token'];
+        return $response;
     }
     public function track($id): array
     {
