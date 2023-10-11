@@ -2,10 +2,11 @@
 it's a PHP library for access to spotify contents with spotify’s internal APIs . by using this library you don't need create spotify developer account and run oAuth2 proccess
 
 ## How use
-you need a server to connect spotify resources then you must include spotifyCrawler.php into your file and use library methods
+you need a HTTPS connection for access to spotify's resources then you must include spotifyCrawler.php into your file and use library methods
 ```php
 require 'spotifyCrawler.php';
 ```
+check examples.php for testing library
 
 ## a simple request
 ```php
